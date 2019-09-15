@@ -1,0 +1,9 @@
+export const gutter = 20
+export const fontFamily = '"Montserrat", Helvetica, Arial'
+export const bold = 700
+export const regular = 400
+export const medium = 500
+export const primary = '#781CFC'
+export const textColor = '#222'
+export const gridWith = 1040
+export const mainBreak = gridWith + gutter * 2
