@@ -6,6 +6,7 @@ import About from '../components/About'
 import WorkList from '../components/WorkList'
 import { gutter, gridWith, mainBreak } from '../vars'
 import GlobalStyle from '../GlobalStyle'
+import OrganicImage from '../components/OrganicImage'
 
 const Container = styled.div`
   height: 100vh;
@@ -14,12 +15,13 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 
   @media (max-width: ${mainBreak}px) {
     display: block;
     position: static;
     height: auto;
-    padding: 20vh 0;
+    padding: 5vh 0 30vh 0;
   }
 `
 
@@ -55,6 +57,7 @@ const IndexPage = () => {
     }
   `)
 
+  // return <OrganicImage />
   return (
     <Container>
       <SEO
@@ -62,7 +65,7 @@ const IndexPage = () => {
         description={data.site.siteMetadata.description}
       />
       <GlobalStyle />
-
+      <OrganicImage />
       <Grid>
         <Left>
           <About />
