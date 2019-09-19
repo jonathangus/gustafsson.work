@@ -59,7 +59,7 @@ const items = [
   },
   {
     title: 'Resume',
-    href: 'mailto:jonathan@gustafsson.work'
+    href: '/jonathan-gustafsson-cv.pdf'
   },
   {
     title: 'Github',
