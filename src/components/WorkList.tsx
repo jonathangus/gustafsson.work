@@ -21,6 +21,10 @@ const WorkList = () => {
           frontmatter {
             title
             url
+            files {
+              extension
+              publicURL
+            }
           }
           excerpt(format: HTML, pruneLength: 1000)
         }

@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { gutter, textColor } from '../vars'
-import { motion } from 'framer-motion'
+import { gutter, textColor, mainBreak } from '../vars'
+import { motion, AnimatePresence } from 'framer-motion'
+import File from './File'
 
 const Container = styled(motion.a)`
   margin-bottom: ${p => (p.isLast ? 0 : gutter)}px;
-  opacity: 0;
+  position: relative;
   padding: 20px;
   border-radius: 6px;
   box-shadow: 1px 2px 7px 3px rgba(230, 230, 230, 0.57);
@@ -31,16 +32,43 @@ type Props = {
     frontmatter: {
       title: string
       url: string
+      files: Array<{
+        publicURL: string
+        extension: string
+      }>
     }
     excerpt: string
   }
 }
 
+const elemWidth = 500
+
+const FilesWrapper = styled.div`
+  position: absolute;
+  right: calc(100% + ${gutter}px);
+  width: ${elemWidth}px;
+  top: -500px;
+
+  position: fixed;
+  top: 0%;
+  z-index: 100;
+  height: 100vh;
+  left: 50%;
+  right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+const FileItem = styled(motion.div)``
+
 const WorkItem = ({ item, index, isLast }: Props) => {
+  const el = useRef<HTMLElement>()
+  const [isHover, setOnHover] = useState(false)
+  const [leftOffset, setLeftOffset] = useState(0)
   const variants = {
     hidden: {
-      opacity: 0,
-      x: -80
+      // opacity: 0,
+      // x: -80
     },
     show: {
       opacity: 1,
@@ -54,6 +82,13 @@ const WorkItem = ({ item, index, isLast }: Props) => {
     }
   }
 
+  useEffect(() => {
+    const bounds = el.current.getBoundingClientRect()
+    setLeftOffset(bounds.left - elemWidth - gutter * 2)
+  }, [isHover])
+
+  const files = item.frontmatter.files || []
+
   return (
     <Container
       isLast={isLast}
@@ -61,9 +96,29 @@ const WorkItem = ({ item, index, isLast }: Props) => {
       rel="noopener"
       variants={variants}
       href={item.frontmatter.url}
+      onMouseOver={() => window.innerWidth > mainBreak && setOnHover(true)}
+      onMouseLeave={() => setOnHover(false)}
+      ref={el}
     >
       <Title>{item.frontmatter.title}</Title>
       <Body dangerouslySetInnerHTML={{ __html: item.excerpt }} />
+
+      {isHover && (
+        <FilesWrapper style={{ left: leftOffset }}>
+          <AnimatePresence>
+            {files.map(file => (
+              <FileItem
+                key={file.publicURL}
+                initial={{ opacity: 0, scale: 0.4, x: 300 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                exit={{ opacity: 0, scale: 0.4, x: 300 }}
+              >
+                <File file={file} />{' '}
+              </FileItem>
+            ))}
+          </AnimatePresence>
+        </FilesWrapper>
+      )}
     </Container>
   )
 }
