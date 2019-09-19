@@ -67,8 +67,8 @@ const WorkItem = ({ item, index, isLast }: Props) => {
   const [leftOffset, setLeftOffset] = useState(0)
   const variants = {
     hidden: {
-      // opacity: 0,
-      // x: -80
+      opacity: 0,
+      x: -80
     },
     show: {
       opacity: 1,
@@ -88,6 +88,18 @@ const WorkItem = ({ item, index, isLast }: Props) => {
   }, [isHover])
 
   const files = item.frontmatter.files || []
+
+  useEffect(() => {
+    const prefetch = (url: string) => {
+      if (url.includes('mp4')) {
+        fetch(url)
+      } else {
+        const img = new Image()
+        img.src = url
+      }
+    }
+    files.forEach(({ publicURL }) => prefetch(publicURL))
+  }, [])
 
   return (
     <Container
