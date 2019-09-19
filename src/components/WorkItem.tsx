@@ -104,6 +104,14 @@ const WorkItem = ({ item, index, isLast }: Props) => {
     files.forEach(({ publicURL }) => prefetch(publicURL))
   }, [])
 
+  useEffect(() => {
+    const target = document.querySelector('[data-text-content]')
+    console.log(target)
+    if (target) {
+      target.style.opacity = isHover ? 0 : 1
+    }
+  }, [isHover])
+
   return (
     <Container
       isLast={isLast}

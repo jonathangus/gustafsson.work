@@ -6,6 +6,7 @@ import { gutter, mainBreak } from '../vars'
 import { motion } from 'framer-motion'
 
 const Container = styled(motion.div)`
+  position: relative;
   @media (max-width: ${mainBreak}px) {
     margin-top: ${gutter}px;
   }

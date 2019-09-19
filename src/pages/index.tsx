@@ -38,6 +38,7 @@ const Grid = styled.div`
 const Left = styled.div`
   grid-column-end: span 7;
   grid-column-start: 1;
+  transition: opacity 0.3s linear;
 `
 const Right = styled.div`
   grid-column-end: span 4;
@@ -64,7 +65,7 @@ const IndexPage = () => {
       <GlobalStyle />
 
       <Grid>
-        <Left>
+        <Left data-text-content>
           <About />
         </Left>
         <Right>
