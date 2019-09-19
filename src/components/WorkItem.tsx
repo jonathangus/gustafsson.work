@@ -6,7 +6,6 @@ import File from './File'
 
 const Container = styled(motion.a)`
   margin-bottom: ${p => (p.isLast ? 0 : gutter)}px;
-  position: relative;
   padding: 20px;
   border-radius: 6px;
   box-shadow: 1px 2px 7px 3px rgba(230, 230, 230, 0.57);
@@ -44,22 +43,20 @@ type Props = {
 const elemWidth = 500
 
 const FilesWrapper = styled.div`
-  position: absolute;
-  right: calc(100% + ${gutter}px);
   width: ${elemWidth}px;
-  top: -500px;
-
   position: fixed;
   top: 0%;
   z-index: 100;
   height: 100vh;
-  left: 50%;
+  left: 0;
   right: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `
-const FileItem = styled(motion.div)``
+const FileItem = styled(motion.div)`
+  width: 100%;
+`
 
 const WorkItem = ({ item, index, isLast }: Props) => {
   const el = useRef<HTMLElement>()
@@ -73,6 +70,9 @@ const WorkItem = ({ item, index, isLast }: Props) => {
     show: {
       opacity: 1,
       x: 0,
+      transitionEnd: {
+        position: 'relative'
+      },
       transition: {
         type: 'spring',
         stiffness: 70,
@@ -82,10 +82,13 @@ const WorkItem = ({ item, index, isLast }: Props) => {
     }
   }
 
-  useEffect(() => {
-    const bounds = el.current.getBoundingClientRect()
-    setLeftOffset(bounds.left - elemWidth - gutter * 2)
-  }, [isHover])
+  const onMouseOver = () => {
+    if (window.innerWidth > mainBreak) {
+      const bounds = el.current.getBoundingClientRect()
+      setLeftOffset(bounds.left - elemWidth - gutter * 2)
+      setOnHover(true)
+    }
+  }
 
   const files = item.frontmatter.files || []
 
@@ -108,7 +111,7 @@ const WorkItem = ({ item, index, isLast }: Props) => {
       rel="noopener"
       variants={variants}
       href={item.frontmatter.url}
-      onMouseOver={() => window.innerWidth > mainBreak && setOnHover(true)}
+      onMouseEnter={onMouseOver}
       onMouseLeave={() => setOnHover(false)}
       ref={el}
     >
@@ -117,18 +120,16 @@ const WorkItem = ({ item, index, isLast }: Props) => {
 
       {isHover && (
         <FilesWrapper style={{ left: leftOffset }}>
-          <AnimatePresence>
-            {files.map(file => (
-              <FileItem
-                key={file.publicURL}
-                initial={{ opacity: 0, scale: 0.4, x: 300 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                exit={{ opacity: 0, scale: 0.4, x: 300 }}
-              >
-                <File file={file} />{' '}
-              </FileItem>
-            ))}
-          </AnimatePresence>
+          {files.map(file => (
+            <FileItem
+              key={file.publicURL}
+              initial={{ opacity: 0, scale: 0.4, x: 300 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              exit={{ opacity: 0, scale: 0.4, x: 300 }}
+            >
+              <File file={file} />{' '}
+            </FileItem>
+          ))}
         </FilesWrapper>
       )}
     </Container>
