@@ -58,7 +58,6 @@ const IndexPage = () => {
     }
   `)
 
-  // return <OrganicImage />
   return (
     <Container>
       <SEO
@@ -68,7 +67,7 @@ const IndexPage = () => {
       <GlobalStyle />
       <OrganicImage />
       <Grid>
-        <Left data-text-content>
+        <Left data-content>
           <About />
         </Left>
         <Right>

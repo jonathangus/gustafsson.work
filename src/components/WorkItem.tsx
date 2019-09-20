@@ -105,10 +105,10 @@ const WorkItem = ({ item, index, isLast }: Props) => {
   }, [])
 
   useEffect(() => {
-    const target = document.querySelector('[data-text-content]')
-    if (target) {
-      target.style.opacity = isHover ? 0 : 1
-    }
+    const target = Array.from(document.querySelectorAll('[data-content]'))
+    target.forEach(el => {
+      el.style.opacity = isHover ? 0 : 1
+    })
   }, [isHover])
 
   return (

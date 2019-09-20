@@ -2,14 +2,17 @@ import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import anime from 'animejs'
 import purpleMe from '../../content/images/mister_purple.jpg'
+import { motion } from 'framer-motion'
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   flex-shrink: 0;
   margin-top: 10px;
   width: 330px;
   height: 330px;
   position: relative;
   margin-top: 0px;
+  transition: opacity 0.4s linear;
+  margin: 0 auto;
 
   svg {
     width: 100%;
@@ -64,19 +67,6 @@ const OrganicImage = () => {
   const containerEl = useRef()
 
   useEffect(() => {
-    let winSize = {
-      width: 0,
-      height: 0
-    }
-
-    // const tilt = {
-    //   tx: 10,
-    //   ty: 10,
-    //   rz: 5,
-    //   sx: [0.8, 1.3],
-    //   sy: [0.8, 1.3]
-    // }
-
     const bounds = svgEl.current.getBoundingClientRect()
     const tilt = {
       tx: bounds.width / 8,
@@ -131,26 +121,14 @@ const OrganicImage = () => {
         'translate3d(0px, 0px,0) rotate3d(0,0,1,0deg) scale3d(1,1,1)'
     }
 
-    const onResizeFn = () => {
-      winSize = {
-        width: window.innerWidth,
-        height: window.innerHeight
-      }
-    }
-
     svgEl.current.addEventListener('mousemove', onMouseMoveFn)
     svgEl.current.addEventListener('touchstart', onMouseMoveFn)
     containerEl.current.addEventListener('mouseleave', onMouseMoveLeave)
-
-    window.addEventListener('resize', onResizeFn)
-    onResizeFn()
 
     return () => {
       svgEl.current.removeEventListener('mousemove', onMouseMoveFn)
       svgEl.current.removeEventListener('touchstart', onMouseMoveFn)
       containerEl.current.removeEventListener('mouseleave', onMouseMoveLeave)
-
-      window.removeEventListener('resize', onResizeFn)
     }
   }, [])
 
@@ -158,8 +136,25 @@ const OrganicImage = () => {
     'https://images.unsplash.com/photo-1562102010-558d6be6268e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
   imgSrc = purpleMe
 
+  const variants = {
+    hidden: { opacity: 0, scale: 1.2 },
+    show: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: 1
+      }
+    }
+  }
+
   return (
-    <Container ref={containerEl}>
+    <Container
+      ref={containerEl}
+      initial="hidden"
+      animate="show"
+      variants={variants}
+      data-content
+    >
       <Image src={imgSrc} />
       <svg ref={svgEl} viewBox="0 0 300 300">
         <clipPath id="image-clip">
