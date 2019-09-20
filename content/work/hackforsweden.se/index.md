@@ -7,4 +7,4 @@ files:
   - ./h4s.mp4
 ---
 
-Hack for Sweden is one of the best government initiative because they want to create “good shit” for Sweden thanks to open data.
+Hack for Sweden's purpose is to increase the awareness and use of open data. The main focus is to stimulate and broaden the use of open data for the benefit of society.

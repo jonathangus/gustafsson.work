@@ -1,6 +1,6 @@
 ---
-title: 'beta.etalera.co'
-url: 'https://beta.etalera.co'
+title: 'beta.etablera.co'
+url: 'https://beta.etablera.co/'
 files:
   - ./frontpage_recording.mp4
   - ./mob.jpg

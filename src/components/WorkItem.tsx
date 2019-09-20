@@ -106,41 +106,41 @@ const WorkItem = ({ item, index, isLast }: Props) => {
 
   useEffect(() => {
     const target = document.querySelector('[data-text-content]')
-    console.log(target)
     if (target) {
       target.style.opacity = isHover ? 0 : 1
     }
   }, [isHover])
 
   return (
-    <Container
-      isLast={isLast}
-      target="_blank"
-      rel="noopener"
-      variants={variants}
-      href={item.frontmatter.url}
-      onMouseEnter={onMouseOver}
-      onMouseLeave={() => setOnHover(false)}
-      ref={el}
-    >
-      <Title>{item.frontmatter.title}</Title>
-      <Body dangerouslySetInnerHTML={{ __html: item.excerpt }} />
-
+    <>
+      <Container
+        isLast={isLast}
+        target="_blank"
+        rel="noopener"
+        variants={variants}
+        href={item.frontmatter.url}
+        onMouseEnter={onMouseOver}
+        onMouseLeave={() => setOnHover(false)}
+        ref={el}
+      >
+        <Title>{item.frontmatter.title}</Title>
+        <Body dangerouslySetInnerHTML={{ __html: item.excerpt }} />
+      </Container>
       {isHover && (
         <FilesWrapper style={{ left: leftOffset }}>
           {files.map(file => (
             <FileItem
               key={file.publicURL}
-              initial={{ opacity: 0, scale: 0.4, x: 300 }}
+              initial={{ opacity: 0, scale: 0.8, x: 100 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.4, x: 300 }}
+              exit={{ opacity: 0, scale: 0.8, x: 100 }}
             >
-              <File file={file} />{' '}
+              <File file={file} />
             </FileItem>
           ))}
         </FilesWrapper>
       )}
-    </Container>
+    </>
   )
 }
 
