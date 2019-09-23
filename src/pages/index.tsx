@@ -9,13 +9,13 @@ import GlobalStyle from '../GlobalStyle'
 import OrganicImage from '../components/OrganicImage'
 
 const Container = styled.div`
-  height: 100vh;
-  position: fixed;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 5vh 0;
 
   @media (max-width: ${mainBreak}px) {
     display: block;
