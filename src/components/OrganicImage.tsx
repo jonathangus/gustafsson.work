@@ -13,6 +13,8 @@ const Container = styled(motion.div)`
   margin-top: 0px;
   transition: opacity 0.4s linear;
   margin: 0 auto;
+  touch-action: none;
+  pointer-events: none;
 
   svg {
     width: 100%;
@@ -84,52 +86,52 @@ const OrganicImage = () => {
       loop: true
     })
 
-    const onMouseMoveFn = ev => {
-      requestAnimationFrame(() => {
-        const mousepos = getMousePos(ev)
-        const rotZ = ((2 * tilt.rz) / bounds.height) * mousepos.y - tilt.rz
+    // const onMouseMoveFn = ev => {
+    //   requestAnimationFrame(() => {
+    //     const mousepos = getMousePos(ev)
+    //     const rotZ = ((2 * tilt.rz) / bounds.height) * mousepos.y - tilt.rz
 
-        const scaleX =
-          mousepos.x < bounds.width / 2
-            ? lineEq(tilt.sx[0], tilt.sx[1], bounds.width / 2, 0, mousepos.x)
-            : lineEq(
-                tilt.sx[1],
-                tilt.sx[0],
-                bounds.width,
-                bounds.width / 2,
-                mousepos.x
-              )
-        const scaleY =
-          mousepos.y < bounds.height / 2
-            ? lineEq(tilt.sy[0], tilt.sy[1], bounds.height / 2, 0, mousepos.y)
-            : lineEq(
-                tilt.sy[1],
-                tilt.sy[0],
-                bounds.height,
-                bounds.height / 2,
-                mousepos.y
-              )
-        const transX = ((2 * tilt.tx) / bounds.width) * mousepos.x - tilt.tx
-        const transY = ((2 * tilt.ty) / bounds.height) * mousepos.y - tilt.ty
+    //     const scaleX =
+    //       mousepos.x < bounds.width / 2
+    //         ? lineEq(tilt.sx[0], tilt.sx[1], bounds.width / 2, 0, mousepos.x)
+    //         : lineEq(
+    //             tilt.sx[1],
+    //             tilt.sx[0],
+    //             bounds.width,
+    //             bounds.width / 2,
+    //             mousepos.x
+    //           )
+    //     const scaleY =
+    //       mousepos.y < bounds.height / 2
+    //         ? lineEq(tilt.sy[0], tilt.sy[1], bounds.height / 2, 0, mousepos.y)
+    //         : lineEq(
+    //             tilt.sy[1],
+    //             tilt.sy[0],
+    //             bounds.height,
+    //             bounds.height / 2,
+    //             mousepos.y
+    //           )
+    //     const transX = ((2 * tilt.tx) / bounds.width) * mousepos.x - tilt.tx
+    //     const transY = ((2 * tilt.ty) / bounds.height) * mousepos.y - tilt.ty
 
-        //  pathEl.current.style.transform = `translate3d(${transX}px, ${transY}px,0)`
-        pathEl.current.style.transform = `translate3d(${transX}px, ${transY}px,0) rotate3d(0,0,1,${rotZ}deg) scale3d(${scaleX},${scaleY},1)`
-      })
-    }
-    const onMouseMoveLeave = () => {
-      pathEl.current.style.transform =
-        'translate3d(0px, 0px,0) rotate3d(0,0,1,0deg) scale3d(1,1,1)'
-    }
+    //     //  pathEl.current.style.transform = `translate3d(${transX}px, ${transY}px,0)`
+    //     pathEl.current.style.transform = `translate3d(${transX}px, ${transY}px,0) rotate3d(0,0,1,${rotZ}deg) scale3d(${scaleX},${scaleY},1)`
+    //   })
+    // }
+    // const onMouseMoveLeave = () => {
+    //   pathEl.current.style.transform =
+    //     'translate3d(0px, 0px,0) rotate3d(0,0,1,0deg) scale3d(1,1,1)'
+    // }
 
-    svgEl.current.addEventListener('mousemove', onMouseMoveFn)
-    svgEl.current.addEventListener('touchstart', onMouseMoveFn)
-    containerEl.current.addEventListener('mouseleave', onMouseMoveLeave)
+    // svgEl.current.addEventListener('mousemove', onMouseMoveFn)
+    // svgEl.current.addEventListener('touchstart', onMouseMoveFn)
+    // containerEl.current.addEventListener('mouseleave', onMouseMoveLeave)
 
-    return () => {
-      svgEl.current.removeEventListener('mousemove', onMouseMoveFn)
-      svgEl.current.removeEventListener('touchstart', onMouseMoveFn)
-      containerEl.current.removeEventListener('mouseleave', onMouseMoveLeave)
-    }
+    // return () => {
+    //   svgEl.current.removeEventListener('mousemove', onMouseMoveFn)
+    //   svgEl.current.removeEventListener('touchstart', onMouseMoveFn)
+    //   containerEl.current.removeEventListener('mouseleave', onMouseMoveLeave)
+    // }
   }, [])
 
   let imgSrc =

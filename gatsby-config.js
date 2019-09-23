@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Jonathan Gustafsson`,
     description:
-      'Jonathan Gustafsson is a senior frontend developer consultant.',
+      'Self-taught frontend developer who loves building web applications with the latest tech stack.',
     author: `@jonathangus`
   },
   plugins: [

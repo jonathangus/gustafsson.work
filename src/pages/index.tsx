@@ -55,13 +55,18 @@ const IndexPage = () => {
           title
         }
       }
+      markdownRemark(frontmatter: { name: { eq: "Jonathan Gustafsson" } }) {
+        frontmatter {
+          title
+        }
+      }
     }
   `)
 
   return (
     <Container>
       <SEO
-        title={data.site.siteMetadata.title}
+        title={`${data.site.siteMetadata.title} - ${data.markdownRemark.frontmatter.title}`}
         description={data.site.siteMetadata.description}
       />
       <GlobalStyle />
