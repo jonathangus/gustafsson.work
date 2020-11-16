@@ -1,6 +1,6 @@
 ---
 title: 'hackforsweden.se'
-url: 'https://hackforsweden.se'
+url: 'https://confident-mcnulty-6157c3.netlify.app/'
 files:
   - ./landing.jpg
   - ./winners.mp4
